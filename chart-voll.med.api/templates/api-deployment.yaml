@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: voll-med-api # nomed do deployment
+    name: voll.med.api # nomed do deployment
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: voll-med-api # nome para referenciar o deployment e pods
+            app: voll.med.api # nome para referenciar o deployment e pods
     template:
         metadata:
             labels:
-                app: voll-med-api # nome que outros serviços usuarão para falar com os pods
+                app: voll.med.api # nome que outros serviços usuarão para falar com os pods
         spec:
             containers:
-                - name: voll-med-api
+                - name: voll.med.api
                   image: cryssantos9/api.med.voll:v1 # imagem no docker hub
                   imagePullPolicy: IfNotPresent # para baixar do dockerhub caso nao exista na máquina local
                   resources:

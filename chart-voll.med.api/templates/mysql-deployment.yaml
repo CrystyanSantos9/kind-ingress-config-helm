@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mysql8 # como o deployment se chamará
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # como os outro serviços irão chamá-lo
+      app: {{ .Release.Name }}-mysql8
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mysql8 # a quem nosso template se aplica
+    spec:
+      containers:
+        - name: mysql8
+          image: mysql:{{ .Values.mysql8.tag }}
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              value: {{ .Values.mysql8.database }}
+            - name: MYSQL_USER
+              value: {{ .Values.mysql8.user }}
+            - name: MYSQL_PASSWORD
+              value: {{ .Values.mysql8.password }}
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.mysql8.root_password }}
