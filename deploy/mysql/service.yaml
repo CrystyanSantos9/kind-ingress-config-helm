@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: svcmysql8 # nome do meu service
+    labels:
+        run: mysql8
+spec:
+    ports:
+        - port: 3306 # porta de entrada do meu service - fica do lado cliente
+          targetPort: 3306 # porta de saída do meu service - aponta para o pod backend
+          protocol: TCP
+    selector:
+        app: mysql8 #nome do meu deployment

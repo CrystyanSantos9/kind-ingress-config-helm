@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: voll.med.api # nomed do deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: voll.med.api # nome para referenciar o deployment e pods
+    template:
+        metadata:
+            labels:
+                app: voll.med.api # nome que outros serviços usuarão para falar com os pods
+        spec:
+            containers:
+                - name: voll.med.api
+                  image: cryssantos9/api.med.voll:v1 # imagem no docker hub
+                  imagePullPolicy: IfNotPresent # para baixar do dockerhub caso nao exista na máquina local
+                  resources:
+                      limits:
+                          memory: "500Mi"
+                          cpu: "500m"
+                  ports:
+                      - containerPort: 8081
+                  env:
+                      - name: MYSQL_URL # nome da variável esperada
+                        value: jdbc:mysql://svcmyql8:3306/vollmed_api
+                      - name: MYSQL_USER # nome da variável esperada
+                        value: user
+                      - name: MYSQL_PASSWORD # nome da variável esperada
+                        value: pass
