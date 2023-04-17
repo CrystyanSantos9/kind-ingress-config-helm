@@ -1,7 +1,0 @@
-mysql8:
-    image: mysql:8
-    tag: 8
-    user: user
-    password: pass
-    root_password: pass
-    database: vollmed_api
