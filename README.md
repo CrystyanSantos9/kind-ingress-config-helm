@@ -1,8 +1,8 @@
 ## Arquivos de configuração de Cluster e ingress para KIND 
 
-Este repositório contém arquivos de definição para utilização da ferramenta [KIND](https://kind.sigs.k8s.io/) para criação e gerenciamento dos nossos clusters locais. Possui também um arquivo de configuração referente a implantação do [Ingres](https://kind.sigs.k8s.io/docs/user/ingress/#ingress-nginx) controller com correções nas definições, para que possamos implantá-lo em nosso ambiente local utilizando o kind. 
+Este repositório contém arquivos de definição para utilização da ferramenta [KIND](https://kind.sigs.k8s.io/) para criação e gerenciamento dos nossos clusters locais. Possui também um arquivo de configuração referente a implantação do [Ingres](https://kind.sigs.k8s.io/docs/user/ingress/#ingress-nginx) controller com correções nas definições, para que possamos implantá-lo em nosso ambiente local utilizando o kind e realizar o uso do [Helm](https://helm.sh/) para o controle de versão dos nossos deployments. 
 
-### Passo a Passo
+### Passo a Passo 
 
 1 - Criando o cluster local
 
@@ -28,7 +28,7 @@ Em seguida aguardaremos a implantação completa do nosos ingress controller, pa
 kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s
 ```
 
-3 - Verificando instalação 
+3 - Verificando instalação do ingress
 
 Após os passos anteriores, vamos verificar se o ingress foi adicionado com sucesso listando todos os componentes presentes no namespace do nosso ingress
 
@@ -43,6 +43,16 @@ kubectl describe -n ingress-nginx pod/ingress-nginx-controller-5b8c4489c7-g6xwb
 ```
 
 O valor do pod pode alterar, logo será necessário alterár o valor <pre>ingress-nginx-controller-5b8c4489c7-g6xwb</pre> de acordo com sua instalação. 
+
+4 - Executando aplicação 
+
+Após terminar os passos acima, para executar a nossa aplicação no cluster criado e utilizamos o ingress, basta executar o comando:
+
+```
+ $ helm install apivollmed ./chart-voll-med-api/
+```
+
+Com isso o nosso chart será aplicado utilizando os detalhes presentes nos arquivos da pasta /templates
 
 
 
