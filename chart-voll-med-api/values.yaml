@@ -9,6 +9,6 @@ mysql8:
 api:
     ingress:
         enabled: true
-        hosts: ["api.medicos","medicos.com"]  
+        hosts: [apimedicos.cryss.dev, api.medicos, medicos.com]
     image: cryssantos9/api.med.voll:v3 # imagem no docker hub
     serviceType: ClusterIP
